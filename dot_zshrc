@@ -1,0 +1,123 @@
+# ==================
+# Necessary initializations
+# ==================
+
+if [[ ! -f $HOME/.zi/bin/zi.zsh ]]; then
+  print -P "%F{33}▓▒░ %F{160}Installing (%F{33}z-shell/zi%F{160})…%f"
+  command mkdir -p "$HOME/.zi" && command chmod go-rwX "$HOME/.zi"
+  command git clone -q --depth=1 --branch "main" https://github.com/z-shell/zi "$HOME/.zi/bin" && \
+    print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+    print -P "%F{160}▓▒░ The clone has failed.%f%b"
+fi
+source "$HOME/.zi/bin/zi.zsh"
+autoload -Uz _zi
+(( ${+_comps} )) && _comps[zi]=_zi
+# examples here -> https://wiki.zshell.dev/ecosystem/category/-annexes
+zicompinit # <- https://wiki.zshell.dev/docs/guides/commands
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Bash completion script compatibility mode
+autoload -U +X bashcompinit && bashcompinit
+
+# ==================
+# Path
+# ==================
+
+export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/Users/callista/.local/bin:$PATH"
+
+# ==================
+# Zi plugins
+# ==================
+
+# Additional completion definitions for Zsh
+zi light zsh-users/zsh-completions
+
+# Fish-like autosuggestions for zsh
+zi light zsh-users/zsh-autosuggestions
+
+# Fish shell like syntax highlighting for Zsh
+zi light zsh-users/zsh-syntax-highlighting
+
+# ZSH port of Fish history search (up and down arrows)
+zi light zsh-users/zsh-history-substring-search
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# Jump quickly to directories that you have visited "frecently"
+zi light agkozak/zsh-z
+
+# Zsh theme
+zi light romkatv/powerlevel10k
+
+# Oh-my-zsh plugins
+zi wait lucid for \
+  OMZP::asdf \
+  OMZP::git \
+  OMZP::colored-man-pages \
+  OMZP::jsontools \
+  OMZP::fzf \
+  OMZP::python \
+  OMZP::sudo \
+  OMZP::nmap
+
+# Completions
+zi wait lucid as"completion" for \
+  OMZP::ripgrep/_ripgrep \
+  OMZP::pip/_pip \
+  OMZP::fd/_fd \
+  OMZP::httpie/_httpie
+
+# LS_COLORS
+zi ice atclone'dircolors -b LS_COLORS > clrs.zsh' \
+  atpull'%atclone' pick"clrs.zsh" nocompile'!' \
+  atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
+zi light trapd00r/LS_COLORS
+
+# Direnv
+zi from"gh-r" as"program" mv"direnv* -> direnv" \
+  atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' \
+  pick"direnv" src="zhook.zsh" for \
+    direnv/direnv
+
+# ==================
+# Aliases
+# ==================
+
+alias cp="cp -riv"
+alias ll="ls -hltrpgo --color=auto"
+alias mkdir="mkdir -vp"
+alias mv="mv -iv"
+alias ls="ls --color=auto"
+alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias gs="git status"
+alias dns="dig +noall +answer"
+alias c="chezmoi"
+
+function killport() {
+  lsof -i TCP:$1 | grep LISTEN | awk '{print $2}' | xargs kill -9
+}
+
+# Copies current directory path to clipboard
+function cpdir() {
+  pwd | tr -d "\r\n" | pbcopy
+}
+
+# Copies content of file to clipboard
+function cpfile() {
+  cat $1 | pbcopy
+}
+
+# ==================
+# Etc
+# ==================
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

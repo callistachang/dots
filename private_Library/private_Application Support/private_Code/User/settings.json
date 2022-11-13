@@ -1,0 +1,341 @@
+{
+  "editor.fontSize": 14,
+  "window.zoomLevelChangeValue": 0.1,
+  "fontshortcuts.step": 1,
+  "editor.mouseWheelZoom": false,
+  "editor.fontFamily": "JetBrains Mono",
+  "editor.fontLigatures": true,
+  "editor.snippetSuggestions": "bottom",
+  "editor.suggestSelection": "first",
+  "editor.minimap.enabled": false,
+  "editor.tabCompletion": "on",
+  "editor.codeLens": true,
+  "editor.formatOnSave": true,
+  "editor.acceptSuggestionOnEnter": "off",
+  "editor.cursorStyle": "line",
+  "editor.insertSpaces": true,
+  "editor.lineNumbers": "relative",
+  "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
+  "editor.detectIndentation": false,
+  "editor.showUnused": false,
+
+  // window
+  "window.titleBarStyle": "custom",
+  "window.customMenuBarAltFocus": false,
+  "window.enableMenuBarMnemonics": false,
+
+  // workbench
+  "workbench.tree.indent": 15,
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter-notebook"
+  },
+
+  // terminal
+  //   "terminal.integrated.defaultProfile.windows": "Ubuntu-20.04 (WSL)",
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  //   "terminal.integrated.fontFamily": "FiraCode NF",
+  // "terminal.integrated.fontFamily": "Consolas",
+  // "terminal.integrated.macOptionClickForcesSelection": true,
+
+  // explorer
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+
+  // ssh
+  //   "remote.SSH.remotePlatform": {
+  //     "139.59.110.232": "linux",
+  //     "192.168.3.10": "linux"
+  //   },
+  "security.workspace.trust.untrustedFiles": "open",
+
+  // files
+  "files.associations": {
+    "*html": "html",
+    "*njk": "html"
+  },
+  "files.exclude": {
+    ".git": false,
+    ".gitattributes": true,
+    "/*.pyc": true,
+    "**/__pycache__": true,
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true,
+    "debug.log": true
+  },
+
+  /* ===== EXTENSIONS ===== */
+
+  "extensions.ignoreRecommendations": true,
+
+  // todohighlight
+  "todohighlight.isEnable": true,
+  "todohighlight.include": ["/*.py"],
+
+  // css modules
+  "cssModules.camelCase": true,
+
+  // tabnine
+  "tabnine.experimentalAutoImports": true,
+
+  // vim
+  //   "vim.vimrc.enable": true,
+  //   "vim.vimrc.path": "C:\\DevLibraries\\_vimrc",
+  "vim.handleKeys": {
+    "<C-f>": false,
+    "<C-c>": false,
+    "<C-v>": false,
+    "<C-x>": false,
+    "<C-a>": false,
+    "<C-w>": false
+  },
+  "vim.surround": true,
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<leader>", "w"],
+      "commands": ["workbench.action.files.save"]
+    },
+    {
+      "before": ["<enter>"],
+      "after": ["g", "_"]
+    },
+    {
+      "before": [" "],
+      "after": ["^"]
+    },
+    {
+      "before": ["j"],
+      "after": ["g", "j"]
+    },
+    {
+      "before": ["k"],
+      "after": ["g", "k"]
+    },
+    // {
+    //   "before": ["s"],
+    //   "after": ["f"]
+    // },
+    // {
+    //   "before": ["S"],
+    //   "after": ["F"]
+    // },
+    {
+      "before": ["s"],
+      "after": ["<leader>", "<leader>", "<leader>", "b", "d", "w"]
+    },
+    {
+      "before": ["<C-c>"],
+      "after": ["\"", "+", "y"]
+    },
+    {
+      "before": ["<C-v>"],
+      "after": ["\"", "+", "p"]
+    },
+    {
+      "before": ["<leader>", "r"],
+      "commands": ["code-runner.run"]
+    },
+    {
+      "before": ["<leader>", "q"],
+      "commands": ["workbench.action.closeActiveEditor"]
+    },
+    {
+      "before": ["v"],
+      "after": ["V"]
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": [">"],
+      "commands": ["editor.action.indentLines"]
+    },
+    {
+      "before": ["<"],
+      "commands": ["editor.action.outdentLines"]
+    },
+    {
+      "before": ["j"],
+      "after": ["g", "j"]
+    },
+    {
+      "before": ["k"],
+      "after": ["g", "k"]
+    },
+    {
+      "before": ["<enter>"],
+      "after": ["g", "_"]
+    },
+    {
+      "before": [" "],
+      "after": ["^"]
+    },
+    {
+      "before": ["<C-c>"],
+      "after": ["\"", "+", "y"]
+    },
+    {
+      "before": ["<C-v>"],
+      "after": ["\"", "+", "p"]
+    }
+  ],
+  "vim.easymotion": true,
+  "vim.easymotionKeys": "hklyuiopnmqwertzxcvbasdgjf",
+  "vim.incsearch": true,
+  "vim.easymotionMarkerFontWeight": "bold",
+  "vim.useCtrlKeys": true,
+  "vim.hlsearch": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "k"],
+      "after": ["<Esc>"]
+    },
+    {
+      "before": ["<leader>", "w"],
+      "commands": ["workbench.action.files.save"],
+      "after": ["<Esc>"]
+    }
+  ],
+  "vim.leader": ",",
+  "vim.cursorStylePerMode.insert": "line-thin",
+
+  // emmet
+  "emmet.triggerExpansionOnTab": true,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "vue-html": "html",
+    "razor": "html",
+    "plaintext": "jade"
+  },
+
+  /* ===== LANGUAGE-SPECIFIC STUFF ===== */
+
+  //   // python
+  "python.venvPath": "D:\\pypoetry\\Cache\\virtualenvs",
+  "python.autoComplete.extraPaths": [
+    "/home/callista/Documents/learnable-backend/env/lib/python3.6/site-packages"
+  ],
+  "python.formatting.provider": "black",
+  //   "python.defaultInterpreterPath": "/Users/callistac/.pyenv/versions/3.9.11/bin/python",
+  //   //   "python.formatting.blackArgs": ["--line-length", "110"],
+  //   "python.analysis.extraPaths": [
+  //     "C:\\Users\\CallistaChang\\.pyenv\\pyenv-win\\versions\\3.8.8\\Lib\\site-packages"
+  //   ],
+  //   "python.analysis.diagnosticSeverityOverrides": {
+  //     "reportMissingImports": "none"
+  //   },
+
+  // javascript
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "js/ts.implicitProjectConfig.experimentalDecorators": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+  "[ruby]": {
+    "editor.tabSize": 2
+    // "editor.defaultFormatter": "sorbet.sorbet-vscode-extension"
+  },
+  "js/ts.implicitProjectConfig.checkJs": true,
+
+  // json
+  "[json]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // vanilla webdev
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features",
+    "editor.formatOnSave": true
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[less]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  //   "[svelte]": {
+  //     "editor.defaultFormatter": "svelte.svelte-vscode",
+  //     "editor.formatOnSave": true
+  //   },
+
+  // error lens
+  "workbench.colorCustomizations": {
+    "errorLens.errorBackground": "#e454540a",
+    "errorLens.errorForeground": "#ff646499",
+    "errorLens.warningBackground": "#ff942f0a",
+    "errorLens.warningForeground": "#fa973a99"
+  },
+
+  // solidity
+  "solidity.compileUsingRemoteVersion": "v0.8.4+commit.c7e474f2",
+
+  // svelte
+  //   "[svelte]": {
+  //     "editor.formatOnSave": true,
+  //     "editor.defaultFormatter": "svelte.svelte-vscode"
+  //   },
+  "svelte.enable-ts-plugin": true,
+  "prettier.tabWidth": 2,
+  "git.autofetch": true,
+  "svelte.language-server.runtime": "\\\\wsl.localhost\\Ubuntu-20.04\\home\\taplop\\.local\\share\\nvm\\v16.13.0\\bin",
+
+  "tailwindCSS.includeLanguages": {
+    "html": "html",
+    "javascript": "javascript",
+    "css": "css"
+  },
+  "workbench.sideBar.location": "right",
+  "editor.inlineSuggest.enabled": true,
+  "css.validate": false,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "tailwindCSS.emmetCompletions": true,
+  "rust-analyzer.checkOnSave.enable": false,
+  "rust-analyzer.lens.enable": false,
+  "rust-analyzer.inlayHints.enable": false,
+  "[rust]": {
+    "editor.formatOnSave": true
+  },
+  "github.copilot.enable": {
+    "*": true,
+    "yaml": false,
+    "plaintext": false,
+    "markdown": false,
+    "rust": false
+  },
+  "redhat.telemetry.enabled": false,
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "typescript.validate.enable": false,
+  "javascript.validate.enable": false,
+  "update.mode": "none",
+  "security.workspace.trust.enabled": false,
+  "remote.autoForwardPorts": false,
+  "remote.restoreForwardedPorts": false,
+  "remote.SSH.enableAgentForwarding": false,
+  "remote.SSH.path": "sc-ssh-wrapper",
+  "remote.SSH.useLocalServer": true,
+  "debug.javascript.automaticallyTunnelRemoteServer": false,
+  "sorbet.enabled": true,
+  "typescript.tsdk": "/Users/callistac/stripe/pay-server/frontend/js-scripts/node_modules/typescript/lib",
+  //   "update.channel": "none",
+  //   "telemetry.enableTelemetry": false,
+  "npm.keybindingsChangedWarningShown": true,
+  "workbench.colorTheme": "Dracula Soft",
+  "terminal.integrated.fontFamily": "monospace",
+  "python.defaultInterpreterPath": "/Users/callistac/.pyenv/versions/3.9.11/bin/python",
+  "workbench.iconTheme": "Monokai Pro (Filter Machine) Icons",
+  "terminal.integrated.allowChords": false,
+"editor.lineHeight": 0,
+"window.zoomLevel": -1,
+"code-runner.runInTerminal": true
+}

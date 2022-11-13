@@ -1,0 +1,145 @@
+[
+  {
+    "key": "ctrl+i",
+    "command": "workbench.action.previousEditor",
+    "when": "vim.mode != 'Insert' && editorFocus"
+  },
+  {
+    "key": "ctrl+o",
+    "command": "workbench.action.nextEditor",
+    "when": "vim.mode != 'Insert' && editorFocus"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "vim.mode != 'Insert'"
+  },
+  {
+    "key": "ctrl+t",
+    "command": "workbench.action.terminal.toggleTerminal",
+    "when": "vim.mode != 'Insert'"
+  },
+  {
+    "key": "ctrl+h",
+    "command": "workbench.action.navigateLeft",
+    "when": "vim.mode != 'Insert'"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.navigateRight",
+    "when": "vim.mode != 'Insert'"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.navigateUp",
+    "when": "vim.mode != 'Insert'"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.navigateDown",
+    "when": "vim.mode != 'Insert'"
+  },
+  {
+    "key": "ctrl+]",
+    "command": "workbench.action.nextSideBarView",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+[",
+    "command": "workbench.action.previousSideBarView",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "selectNextSuggestion",
+    "when": "suggestWidgetVisible"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "selectPrevSuggestion",
+    "when": "suggestWidgetVisible"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "workbench.action.quickOpenSelectNext",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.quickOpenSelectPrevious",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "shift+j",
+    "command": "editor.action.moveLinesDownAction",
+    "when": "editorTextFocus && !editorReadonly && vim.active && vim.mode != 'Insert'"
+  },
+  {
+    "key": "shift+k",
+    "command": "editor.action.moveLinesUpAction",
+    "when": "editorTextFocus && !editorReadonly && vim.active && vim.mode != 'Insert'"
+  },
+  {
+    "key": "shift+u",
+    "command": "extension.vim_ctrl+r",
+    "when": "editorTextFocus && vim.active && vim.mode != 'Insert'"
+  },
+  {
+    "key": "ctrl+f",
+    "command": "filesExplorer.findInFolder"
+  },
+  {
+    "key": "shift+ctrl+p",
+    "command": "workbench.action.showCommands"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "workbench.action.quickOpen",
+    "when": "!terminalFocus"
+  },
+  {
+    "key": "ctrl+t",
+    "command": "workbench.action.terminal.toggleTerminal"
+  },
+  {
+    "key": "ctrl+]",
+    "command": "workbench.action.terminal.focusNext",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+[",
+    "command": "workbench.action.terminal.focusPrevious",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "cmd+r",
+    "command": "python.execInTerminal"
+  },
+  {
+    "key": "ctrl+numpad_add",
+    "command": "-workbench.action.zoomIn"
+  },
+  {
+    "key": "ctrl+numpad_add",
+    "command": "fontshortcuts.increaseEditorFontSize",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+numpad_subtract",
+    "command": "fontshortcuts.decreaseEditorFontSize",
+    "when": "editorFocus"
+  },
+  {
+    "key": "ctrl+-",
+    "command": "-fontshortcuts.decreaseEditorFontSize",
+    "when": "editorFocus"
+  }
+  //   {
+  //       "key": "shift+l",
+  //       "command": "workbench.action.navigateForward"
+  //   },
+  //   {
+  //       "key": "shift+h",
+  //       "command": "workbench.action.navigateBack"
+  //   }
+]
