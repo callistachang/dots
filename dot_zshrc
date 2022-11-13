@@ -26,10 +26,11 @@ fi
 autoload -U +X bashcompinit && bashcompinit
 
 # ==================
-# Path
+# Exports
 # ==================
 
 export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/Users/callista/.local/bin:$PATH"
+export BAT_THEME="gruvbox-dark"
 
 # ==================
 # Zi plugins
@@ -63,7 +64,7 @@ zi wait lucid for \
   OMZP::jsontools \
   OMZP::fzf \
   OMZP::python \
-  OMZP::sudo \
+  OMZP::thefuck \
   OMZP::nmap
 
 # Completions
@@ -90,15 +91,29 @@ zi from"gh-r" as"program" mv"direnv* -> direnv" \
 # ==================
 
 alias cp="cp -riv"
-alias ll="ls -hltrpgo --color=auto"
+alias cat="bat --paging=never"
 alias mkdir="mkdir -vp"
 alias mv="mv -iv"
-alias ls="ls --color=auto"
+alias dns="dig +noall +answer"
+
+# chezmoi
+alias c="chezmoi"
+alias zshrc="c edit ~/.zshrc --apply"
+
+# exa
+alias ls="exa --group-directories-first --icons"
+alias ll="ls --long --header --git --no-user"
+alias la="ls --all"
+alias lt="ll --tree | less"
+alias ltd="ll --tree --level"
+
+# git
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias gs="git status"
-alias dns="dig +noall +answer"
-alias c="chezmoi"
+alias rebase="current=\$(git branch --show-current); git stash; git switch main; git pull; git switch $current; git rebase; git unstash"
+alias uncommit="git reset --soft HEAD^"
 
+# Kill port
 function killport() {
   lsof -i TCP:$1 | grep LISTEN | awk '{print $2}' | xargs kill -9
 }
