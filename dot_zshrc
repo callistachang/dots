@@ -36,6 +36,9 @@ export BAT_THEME="gruvbox-dark"
 # Zi plugins
 # ==================
 
+# Replace zsh's default completion selection menu with fzf!
+zi light Aloxaf/fzf-tab
+
 # Additional completion definitions for Zsh
 zi light zsh-users/zsh-completions
 
@@ -64,8 +67,8 @@ zi wait lucid for \
   OMZP::jsontools \
   OMZP::fzf \
   OMZP::python \
-  OMZP::thefuck \
   OMZP::nmap
+zi ice wait silent; zi snippet OMZP::thefuck
 
 # Completions
 zi wait lucid as"completion" for \
@@ -77,13 +80,12 @@ zi wait lucid as"completion" for \
 # LS_COLORS
 zi ice atclone'dircolors -b LS_COLORS > clrs.zsh' \
   atpull'%atclone' pick"clrs.zsh" nocompile'!' \
-  atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
+  atload'zstyle ":completion:*" list-colors ${(s.:.)LS_COLORS}'
 zi light trapd00r/LS_COLORS
 
 # Direnv
-zi from"gh-r" as"program" mv"direnv* -> direnv" \
-  atclone'./direnv hook zsh > zhook.zsh' atpull'%atclone' \
-  pick"direnv" src="zhook.zsh" for \
+zi as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' \
+  atpull'%atclone' pick"direnv" src"zhook.zsh" for \
     direnv/direnv
 
 # ==================
@@ -137,4 +139,4 @@ function cpfile() {
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-eval $(thefuck --alias --enable-experimental-instant-mode)
+eval $(thefuck --alias)
