@@ -31,6 +31,8 @@ autoload -U +X bashcompinit && bashcompinit
 
 export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/Users/callista/.local/bin:$PATH"
 export BAT_THEME="gruvbox-dark"
+# Use bat instead of less to display manual pages
+export MANPAGER="sh -c 'sed -e s/.\\\\x08//g | bat -l man -p'"
 
 # ==================
 # Zi plugins
