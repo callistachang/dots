@@ -10,9 +10,9 @@ Managed with [chezmoi](https://www.chezmoi.io/).
 - IntelliJ IDEA (Java IDE)
 - Kitty (terminal)
 - JetBrains Mono (font)
-- Brew (package manager)
-  - zsh (shell)
-  - zi (zsh plugin manager)
+- Zsh (shell)
+  - Homebrew (package manager)
+  - Zi (zsh plugin manager)
   - asdf (prog lang version manager)
   - chezmoi (dotfiles manager)
 
@@ -20,7 +20,7 @@ Managed with [chezmoi](https://www.chezmoi.io/).
 
 - Obsidian (notepad)
 - Notion (another notepad)
-- GoodNotes (another notepad...ish)
+- GoodNotes (another notepad, sorta)
 - Anki (flashcards)
 
 ### Essentials
@@ -32,5 +32,5 @@ Managed with [chezmoi](https://www.chezmoi.io/).
 - Discord (video calling)
 - Telegram Desktop (instant messaging)
 - Raycast (spotlight replacement & window manager)
-- Microsoft Office Suite (lots of things)
+- Microsoft Office Suite (yep)
 - qBittorrent (bittorrent client)
