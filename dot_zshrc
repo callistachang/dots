@@ -23,7 +23,12 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Bash completion script compatibility mode
-autoload -U +X bashcompinit && bashcompinit
+autoload -Uz bashcompinit && bashcompinit
+if type brew &>/dev/null
+then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+  autoload -Uz compinit && compinit
+fi
 
 # ==================
 # Exports
@@ -59,10 +64,10 @@ bindkey '^[[B' history-substring-search-down
 zi light agkozak/zsh-z
 
 # Zsh theme
-zi light romkatv/powerlevel10k
+zi ice depth=1; zi light romkatv/powerlevel10k
 
 # Oh-my-zsh plugins
-zi wait lucid for \
+zi wait lucid is-snippet for \
   OMZP::asdf \
   OMZP::git \
   OMZP::colored-man-pages \
@@ -73,7 +78,7 @@ zi wait lucid for \
 zi ice wait silent; zi snippet OMZP::thefuck
 
 # Completions
-zi wait lucid as"completion" for \
+zi wait lucid is-snippet as"completion" for \
   OMZP::ripgrep/_ripgrep \
   OMZP::pip/_pip \
   OMZP::fd/_fd \
@@ -108,7 +113,7 @@ alias zshrc="c edit ~/.zshrc --apply"
 alias ls="exa --group-directories-first --icons"
 alias ll="ls --long --header --git --no-user"
 alias la="ls --all"
-alias lt="ll --tree | less"
+alias lt="ll --tree | bat"
 alias ltd="ll --tree --level"
 
 # git
