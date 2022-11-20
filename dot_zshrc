@@ -2,6 +2,12 @@
 # Necessary initializations
 # ==================
 
+if type brew &>/dev/null
+then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+  autoload -Uz compinit && compinit
+fi
+
 if [[ ! -f $HOME/.zi/bin/zi.zsh ]]; then
   print -P "%F{33}▓▒░ %F{160}Installing (%F{33}z-shell/zi%F{160})…%f"
   command mkdir -p "$HOME/.zi" && command chmod go-rwX "$HOME/.zi"
@@ -14,20 +20,13 @@ autoload -Uz _zi
 (( ${+_comps} )) && _comps[zi]=_zi
 # examples here -> https://wiki.zshell.dev/ecosystem/category/-annexes
 zicompinit # <- https://wiki.zshell.dev/docs/guides/commands
+zicdreplay -q # <- https://wiki.zshell.dev/docs/guides/commands#ignoring-compdefs
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# Bash completion script compatibility mode
-autoload -Uz bashcompinit && bashcompinit
-if type brew &>/dev/null
-then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-  autoload -Uz compinit && compinit
 fi
 
 # ==================
@@ -38,6 +37,7 @@ export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/Users/callista/.local/bin:$PATH"
 export BAT_THEME="gruvbox-dark"
 # Use bat instead of less to display manual pages
 export MANPAGER="sh -c 'sed -e s/.\\\\x08//g | bat -l man -p'"
+export ASDF_DIR="$(brew --prefix asdf)"
 
 # ==================
 # Zi plugins
@@ -108,12 +108,14 @@ alias dns="dig +noall +answer"
 # chezmoi
 alias c="chezmoi"
 alias zshrc="c edit ~/.zshrc --apply"
+alias s="source ~/.zshrc"
+alias vimrc="c edit ~/.vimrc --apply"
 
 # exa
 alias ls="exa --group-directories-first --icons"
 alias ll="ls --long --header --git --no-user"
 alias la="ls --all"
-alias lt="ll --tree | bat"
+alias lt="ll --tree"
 alias ltd="ll --tree --level"
 
 # git
