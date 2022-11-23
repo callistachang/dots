@@ -18,9 +18,6 @@ fi
 source "$HOME/.zi/bin/zi.zsh"
 autoload -Uz _zi
 (( ${+_comps} )) && _comps[zi]=_zi
-# examples here -> https://wiki.zshell.dev/ecosystem/category/-annexes
-zicompinit # <- https://wiki.zshell.dev/docs/guides/commands
-zicdreplay -q # <- https://wiki.zshell.dev/docs/guides/commands#ignoring-compdefs
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -38,6 +35,7 @@ export BAT_THEME="gruvbox-dark"
 # Use bat instead of less to display manual pages
 export MANPAGER="sh -c 'sed -e s/.\\\\x08//g | bat -l man -p'"
 export ASDF_DIR="$(brew --prefix asdf)"
+export EDITOR=vim
 
 # ==================
 # Zi plugins
@@ -67,7 +65,7 @@ zi light agkozak/zsh-z
 zi ice depth=1; zi light romkatv/powerlevel10k
 
 # Oh-my-zsh plugins
-zi wait lucid is-snippet for \
+zi lucid is-snippet for \
   OMZP::asdf \
   OMZP::git \
   OMZP::colored-man-pages \
@@ -75,10 +73,10 @@ zi wait lucid is-snippet for \
   OMZP::fzf \
   OMZP::python \
   OMZP::nmap
-zi ice wait silent; zi snippet OMZP::thefuck
+zi ice silent; zi snippet OMZP::thefuck
 
 # Completions
-zi wait lucid is-snippet as"completion" for \
+zi lucid is-snippet as"completion" for \
   OMZP::ripgrep/_ripgrep \
   OMZP::pip/_pip \
   OMZP::fd/_fd \
@@ -124,6 +122,11 @@ alias gs="git status"
 alias rebase="current=\$(git branch --show-current); git stash; git switch main; git pull; git switch $current; git rebase; git unstash"
 alias uncommit="git reset --soft HEAD^"
 
+# prev directory
+alias ".."="cd .."
+alias "..."="cd ../.."
+alias "...."="cd ../../.."
+
 # Kill port
 function killport() {
   lsof -i TCP:$1 | grep LISTEN | awk '{print $2}' | xargs kill -9
@@ -142,6 +145,10 @@ function cpfile() {
 # ==================
 # Etc
 # ==================
+
+# examples here -> https://wiki.zshell.dev/ecosystem/category/-annexes
+zicompinit # <- https://wiki.zshell.dev/docs/guides/commands
+zicdreplay -q # <- https://wiki.zshell.dev/docs/guides/commands#ignoring-compdefs
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
