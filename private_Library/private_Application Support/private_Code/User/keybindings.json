@@ -134,12 +134,4 @@
     "command": "-fontshortcuts.decreaseEditorFontSize",
     "when": "editorFocus"
   }
-  //   {
-  //       "key": "shift+l",
-  //       "command": "workbench.action.navigateForward"
-  //   },
-  //   {
-  //       "key": "shift+h",
-  //       "command": "workbench.action.navigateBack"
-  //   }
 ]
