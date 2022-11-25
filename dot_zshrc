@@ -1,11 +1,14 @@
+zmodload zsh/zprof
+
 # ==================
 # Necessary initializations
 # ==================
 
-if type brew &>/dev/null
-then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-  autoload -Uz compinit && compinit
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 if [[ ! -f $HOME/.zi/bin/zi.zsh ]]; then
@@ -19,11 +22,15 @@ source "$HOME/.zi/bin/zi.zsh"
 autoload -Uz _zi
 (( ${+_comps} )) && _comps[zi]=_zi
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+if type brew &>/dev/null
+then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+  # Compinit speedup, only check compinit once every 24h
+  autoload -Uz compinit
+  for dump in ~/.zcompdump(N.mh+24); do
+    compinit
+  done
+  compinit -C
 fi
 
 # ==================
@@ -32,64 +39,64 @@ fi
 
 export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/Users/callista/.local/bin:$PATH"
 export BAT_THEME="gruvbox-dark"
-# Use bat instead of less to display manual pages
+# Use bat for syntax highlighting instead of less to display manual pages 
 export MANPAGER="sh -c 'sed -e s/.\\\\x08//g | bat -l man -p'"
 export ASDF_DIR="$(brew --prefix asdf)"
-export EDITOR=vim
+export EDITOR="vim"
 
 # ==================
 # Zi plugins
 # ==================
 
-# Replace zsh's default completion selection menu with fzf!
-zi light Aloxaf/fzf-tab
+# Plugins that can be loaded async
+# 
+# F-Sy-H: Fish-like syntax highlighting for Zsh
+# zsh-completions: Additional completion definitions for Zsh
+# zsh-autosuggestions: Fish-like autosuggestions for zsh
+# zsh-history-substring-search: Fish-like history search (up and down arrows)
+# zsh-z: Jump quickly to directories you have visited 'frecently'
+# zsh-autopair: Auto enclosing brackets
+zi wait lucid for \
+  atinit"ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+    z-shell/F-Sy-H \
+  blockf \
+    zsh-users/zsh-completions \
+  atload"!_zsh_autosuggest_start" \
+    zsh-users/zsh-autosuggestions \
+  atload"
+    bindkey '^[[A' history-substring-search-up
+    bindkey '^[[B' history-substring-search-down" \
+    zsh-users/zsh-history-substring-search \
+  agkozak/zsh-z \
+  hlissner/zsh-autopair
 
-# Additional completion definitions for Zsh
-zi light zsh-users/zsh-completions
-
-# Fish-like autosuggestions for zsh
-zi light zsh-users/zsh-autosuggestions
-
-# Fish shell like syntax highlighting for Zsh
-zi light zsh-users/zsh-syntax-highlighting
-
-# ZSH port of Fish history search (up and down arrows)
-zi light zsh-users/zsh-history-substring-search
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-
-# Jump quickly to directories that you have visited "frecently"
-zi light agkozak/zsh-z
-
-# Zsh theme
-zi ice depth=1; zi light romkatv/powerlevel10k
-
-# Oh-my-zsh plugins
-zi lucid is-snippet for \
-  OMZP::asdf \
-  OMZP::git \
-  OMZP::colored-man-pages \
-  OMZP::jsontools \
-  OMZP::fzf \
-  OMZP::python \
-  OMZP::nmap
-zi ice silent; zi snippet OMZP::thefuck
+# Plugins that shouldn't be loaded async
+# fzf-tab: Replace zsh's default completion selection menu with fzf!
+# powerlevel10k: Zsh theme
+# evalcache: Cache outputs of eval to speedup shell startup time
+zi light-mode for \
+  Aloxaf/fzf-tab \
+  depth"1" \
+    romkatv/powerlevel10k \
+  mroth/evalcache \
+  atload"
+    ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+    ZVM_ESCAPE_KEYTIMEOUT=0
+    ZVM_KEYTIMEOUT=0" \
+    jeffreytse/zsh-vi-mode
+ 
+# Oh-my-zsh snippets
+zi wait lucid is-snippet for \
+  OMZP::{'asdf','git','jsontools','fzf','python','nmap'} \
+  silent \
+    OMZP::thefuck
 
 # Completions
-zi lucid is-snippet as"completion" for \
-  OMZP::ripgrep/_ripgrep \
-  OMZP::pip/_pip \
-  OMZP::fd/_fd \
-  OMZP::httpie/_httpie
-
-# LS_COLORS
-zi ice atclone'dircolors -b LS_COLORS > clrs.zsh' \
-  atpull'%atclone' pick"clrs.zsh" nocompile'!' \
-  atload'zstyle ":completion:*" list-colors ${(s.:.)LS_COLORS}'
-zi light trapd00r/LS_COLORS
+zi wait lucid as"completion" for \
+  OMZP::pip/_pip
 
 # Direnv
-zi as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' \
+zi wait lucid as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' \
   atpull'%atclone' pick"direnv" src"zhook.zsh" for \
     direnv/direnv
 
@@ -128,31 +135,35 @@ alias "..."="cd ../.."
 alias "...."="cd ../../.."
 
 # Kill port
-function killport() {
+killport() {
   lsof -i TCP:$1 | grep LISTEN | awk '{print $2}' | xargs kill -9
 }
 
 # Copies current directory path to clipboard
-function cpdir() {
+cpdir() {
   pwd | tr -d "\r\n" | pbcopy
 }
 
 # Copies content of file to clipboard
-function cpfile() {
+cpfile() {
   cat $1 | pbcopy
+}
+
+# Time startup time for zsh shell 10x
+timezsh() {
+  shell=${1-$SHELL}
+  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
 }
 
 # ==================
 # Etc
 # ==================
 
-# examples here -> https://wiki.zshell.dev/ecosystem/category/-annexes
-zicompinit # <- https://wiki.zshell.dev/docs/guides/commands
-zicdreplay -q # <- https://wiki.zshell.dev/docs/guides/commands#ignoring-compdefs
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-eval $(thefuck --alias)
+_evalcache thefuck --alias
+
+# zprof # <- Uncomment to profile this zshrc
