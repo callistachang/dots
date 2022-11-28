@@ -1,16 +1,16 @@
-zmodload zsh/zprof
+# Uncomment this line and 'zprof' at the bottom of this file to profile this .zshrc
+# zmodload zsh/zprof 
 
 # ==================
 # Necessary initializations
 # ==================
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
+# Enable Powerlevel10k instant prompt
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+# Enable Zi plugin manager
 if [[ ! -f $HOME/.zi/bin/zi.zsh ]]; then
   print -P "%F{33}▓▒░ %F{160}Installing (%F{33}z-shell/zi%F{160})…%f"
   command mkdir -p "$HOME/.zi" && command chmod go-rwX "$HOME/.zi"
@@ -22,25 +22,27 @@ source "$HOME/.zi/bin/zi.zsh"
 autoload -Uz _zi
 (( ${+_comps} )) && _comps[zi]=_zi
 
+# Update path to function definitions
 if type brew &>/dev/null
 then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-  # Compinit speedup, only check compinit once every 24h
-  autoload -Uz compinit
-  for dump in ~/.zcompdump(N.mh+24); do
-    compinit
-  done
-  compinit -C
+  fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
 fi
+fpath=($HOME/.zi/plugins/zsh-users---zsh-completions/src $fpath)
+
+# Autoload completions - only run once every 24h for speedup
+autoload -Uz compinit
+for dump in ~/.zcompdump(N.mh+24); do
+  compinit
+done
+compinit -C
 
 # ==================
-# Exports
+# Variables
 # ==================
 
 export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/Users/callista/.local/bin:$PATH"
 export BAT_THEME="gruvbox-dark"
-# Use bat for syntax highlighting instead of less to display manual pages 
-export MANPAGER="sh -c 'sed -e s/.\\\\x08//g | bat -l man -p'"
+export MANPAGER="sh -c 'sed -e s/.\\\\x08//g | bat -l man -p'" # Use bat's syntax highlighting for manpages
 export ASDF_DIR="$(brew --prefix asdf)"
 export EDITOR="vim"
 
@@ -48,14 +50,15 @@ export EDITOR="vim"
 # Zi plugins
 # ==================
 
-# Plugins that can be loaded async
+# ===== Plugins loaded after the first prompt
 # 
-# F-Sy-H: Fish-like syntax highlighting for Zsh
-# zsh-completions: Additional completion definitions for Zsh
-# zsh-autosuggestions: Fish-like autosuggestions for zsh
-# zsh-history-substring-search: Fish-like history search (up and down arrows)
-# zsh-z: Jump quickly to directories you have visited 'frecently'
-# zsh-autopair: Auto enclosing brackets
+# F-Sy-H: Fish-like syntax highlighting
+# zsh-completions: Additional completion definitions 
+# zsh-autosuggestions: Fish-like autosuggestions
+# zsh-history-substring-search: Fish-like history search, using up and down arrows
+# zsh-z: Jump quickly to directories you have visited frecently
+# zsh-autopair: Autopair brackets and quotes
+# direnv: Project-specific env vars via .envrc
 zi wait lucid for \
   atinit"ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
     z-shell/F-Sy-H \
@@ -68,37 +71,37 @@ zi wait lucid for \
     bindkey '^[[B' history-substring-search-down" \
     zsh-users/zsh-history-substring-search \
   agkozak/zsh-z \
-  hlissner/zsh-autopair
+  hlissner/zsh-autopair \
+  as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' \
+  atpull'%atclone' pick"direnv" src"zhook.zsh" \
+    direnv/direnv
 
-# Plugins that shouldn't be loaded async
-# fzf-tab: Replace zsh's default completion selection menu with fzf!
-# powerlevel10k: Zsh theme
-# evalcache: Cache outputs of eval to speedup shell startup time
+# ===== Plugins loaded before the first prompt
+# 
+# fzf-tab: Replace the default completion selection menu with fzf
+# powerlevel10k: Theme
+# evalcache: Cache eval outputs to speedup shell startup 
+# zsh-vi-mode: Vi keybindings on the terminal
 zi light-mode for \
   Aloxaf/fzf-tab \
-  depth"1" \
+  depth"1" atload"[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" nocd \
     romkatv/powerlevel10k \
   mroth/evalcache \
-  atload"
-    ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
-    ZVM_ESCAPE_KEYTIMEOUT=0
-    ZVM_KEYTIMEOUT=0" \
-    jeffreytse/zsh-vi-mode
+  #atload"
+  #  ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+  #  ZVM_ESCAPE_KEYTIMEOUT=0
+  #  ZVM_KEYTIMEOUT=0" \
+  #  jeffreytse/zsh-vi-mode
  
-# Oh-my-zsh snippets
+# OMZ snippets, mostly aliases and utilities
 zi wait lucid is-snippet for \
-  OMZP::{'asdf','git','jsontools','fzf','python','nmap'} \
+  OMZP::{'asdf','git','gitignore','extract','jsontools','fzf','python','nmap'} \
   silent \
     OMZP::thefuck
 
 # Completions
 zi wait lucid as"completion" for \
   OMZP::pip/_pip
-
-# Direnv
-zi wait lucid as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' \
-  atpull'%atclone' pick"direnv" src"zhook.zsh" for \
-    direnv/direnv
 
 # ==================
 # Aliases
@@ -149,21 +152,20 @@ cpfile() {
   cat $1 | pbcopy
 }
 
-# Time startup time for zsh shell 10x
+# Measure startup time for your shell
 timezsh() {
   shell=${1-$SHELL}
   for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
+}
+
+run() {
+  clang++ "$1.cpp" -o "$1" && "./$1"
 }
 
 # ==================
 # Etc
 # ==================
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 _evalcache thefuck --alias
 
-# zprof # <- Uncomment to profile this zshrc
+# zprof

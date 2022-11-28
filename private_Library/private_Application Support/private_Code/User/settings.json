@@ -18,6 +18,8 @@
   "editor.detectIndentation": false,
   "editor.showUnused": false,
   "editor.inlineSuggest.enabled": true,
+  "editor.renderWhitespace": "selection",
+  "editor.autoClosingBrackets": "never",
   // window
   "window.zoomLevel": -1,
   "window.zoomLevelChangeValue": 0.1,
@@ -34,11 +36,13 @@
   "workbench.sideBar.location": "right",
   // terminal
   "terminal.integrated.defaultProfile.osx": "zsh",
-  "terminal.integrated.fontFamily": "JetBrains Mono",
+  "terminal.integrated.fontFamily": "JetBrains Mono NL",
+  "terminal.integrated.gpuAcceleration": "on",
   // explorer
   "explorer.confirmDragAndDrop": false,
   "explorer.confirmDelete": false,
-  "fontshortcuts.step": 1,
+  // telemetry
+  "telemetry.telemetryLevel": "off",
   // files
   "files.exclude": {
     ".git": true,
@@ -51,6 +55,7 @@
     "**/.factorypath": true,
     "debug.log": true
   },
+  "files.autoSave": "onFocusChange",
   // git
   "git.autofetch": true,
   "git.enableSmartCommit": true,
@@ -66,6 +71,8 @@
     "errorLens.warningBackground": "#ff942f0a",
     "errorLens.warningForeground": "#fa973a99"
   },
+  // Font Shortcuts
+  "fontshortcuts.step": 1,
   // Code Runner
   "code-runner.runInTerminal": true,
   // VSCode Vim
@@ -204,6 +211,7 @@
   /* ===== LANGUAGE-SPECIFIC STUFF ===== */
   // python
   "python.autoComplete.extraPaths": [],
+  "python.analysis.extraPaths": [],
   "python.formatting.provider": "black",
   // javascript
   "javascript.updateImportsOnFileMove.enabled": "always",
@@ -214,5 +222,6 @@
   // json
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "terminal.integrated.fontSize": 13
 }
