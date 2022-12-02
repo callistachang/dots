@@ -14,8 +14,6 @@ nnoremap <Space> ,
 noremap Y y$
 noremap <leader>y "*y
 noremap <leader>p "*p
-noremap <leader>Y "+y
-noremap <leader>P "+p
 " Undo
 nnoremap U <c-r>
 " Save
@@ -32,16 +30,10 @@ nnoremap J :m .+1<CR>==
 nnoremap K :m .-2<CR>==
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
-" Swap v and V
-nnoremap V v
-nnoremap v V
 " Quick :nohl
 nnoremap <leader>l :nohl<CR>
 xnoremap <leader>l :nohl<CR>
 inoremap <leader>l <Esc>:nohl<CR>a
-" Jumplist
-noremap <C-o> <C-i>
-noremap <C-i> <C-o>
 
 "----------------------------------------
 " Aesthetic
@@ -110,6 +102,7 @@ let s:comment_map = {
     \   "bashrc": '#',
     \   "conf": '#',
     \   "bash_profile": '#',
+    \   "zsh": '#',
     \   "vim": '"',
     \ }
 function! ToggleComment()

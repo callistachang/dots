@@ -1,0 +1,101 @@
+layouts:
+  - tall
+  - tall-right
+  - fullscreen
+  - two-pane
+
+mod1:
+  - command
+  - control
+
+mod2:
+  - option
+  - control
+
+window-max-count: 3
+float-small-windows: false
+mouse-swaps-windows: true
+mouse-resizes-windows: true
+follow-space-thrown-windows: false
+
+# ======================
+# MOD 1
+# ======================
+
+# Change layouts
+cycle-layout:
+  mod: mod1
+  key: "space"
+
+# Make current window the main window
+swap-main:
+  mod: mod1
+  key: "enter"
+
+# Focus next window
+focus-ccw:
+  mod: mod1
+  key: "j"
+focus-cw:
+  mod: mod1
+  key: "k"
+
+# Focus next monitor screen
+focus-screen-ccw:
+  mod: mod1
+  key: "h"
+focus-screen-cw:
+  mod: mod1
+  key: "l"
+
+# Throw window to the next monitor screen
+swap-screen-cw:
+  mod: mod1
+  key: ";"
+
+# Throw window to the next space (ctrl+left to move to the next space)
+throw-space-left:
+  mod: mod1
+  key: "left"
+throw-space-right:
+  mod: mod1
+  key: "right"
+throw-space-1:
+  mod: mod1
+  key: "1"
+throw-space-2:
+  mod: mod1
+  key: "2"
+throw-space-3:
+  mod: mod1
+  key: "3"
+throw-space-4:
+  mod: mod1
+  key: "4"
+throw-space-5:
+  mod: mod1
+  key: "5"
+
+# ======================
+# MOD 2
+# ======================
+
+# Swap next window
+swap-cw:
+  mod: mod2
+  key: "j"
+swap-ccw:
+  mod: mod2
+  key: "k"
+
+# Resize window
+shrink-main:
+  mod: mod2
+  key: "h"
+expand-main:
+  mod: mod2
+  key: "l"
+
+relaunch-amethyst:
+  mod: mod2
+  key: "z"

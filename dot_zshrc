@@ -127,8 +127,8 @@ alias lt="ll --tree"
 alias ltd="ll --tree --level"
 
 # git
-alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias gs="git status"
+alias commit="git add -A && git commit -m \"Commit on $(date '+%d-%m-%Y @ %H:%M:%S')\" && git push"
 alias rebase="current=\$(git branch --show-current); git stash; git switch main; git pull; git switch $current; git rebase; git unstash"
 alias uncommit="git reset --soft HEAD^"
 
