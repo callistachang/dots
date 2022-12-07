@@ -17,6 +17,10 @@ float-small-windows: false
 mouse-swaps-windows: true
 mouse-resizes-windows: true
 follow-space-thrown-windows: false
+<<<<<<< Updated upstream
+=======
+enables-layout-hud-on-space-change: false
+>>>>>>> Stashed changes
 
 # ======================
 # MOD 1

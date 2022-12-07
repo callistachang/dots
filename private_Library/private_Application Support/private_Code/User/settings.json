@@ -1,11 +1,11 @@
 {
   // editor
   "editor.lineHeight": 0,
-  "editor.fontSize": 14,
+  "editor.fontSize": 15,
   "editor.mouseWheelZoom": false,
   "editor.fontFamily": "JetBrains Mono",
   "editor.fontLigatures": true,
-  "editor.snippetSuggestions": "bottom",
+//   "editor.snippetSuggestions": "bottom",
   "editor.suggestSelection": "first",
   "editor.minimap.enabled": false,
   "editor.tabCompletion": "on",
@@ -19,7 +19,6 @@
   "editor.showUnused": false,
   "editor.inlineSuggest.enabled": true,
   "editor.renderWhitespace": "selection",
-  "editor.autoClosingBrackets": "never",
   // window
   "window.zoomLevel": -1,
   "window.zoomLevelChangeValue": 0.1,
@@ -38,6 +37,7 @@
   "terminal.integrated.defaultProfile.osx": "zsh",
   "terminal.integrated.fontFamily": "JetBrains Mono NL",
   "terminal.integrated.gpuAcceleration": "on",
+  "terminal.integrated.fontSize": 13,
   // explorer
   "explorer.confirmDragAndDrop": false,
   "explorer.confirmDelete": false,
@@ -75,6 +75,9 @@
   "fontshortcuts.step": 1,
   // Code Runner
   "code-runner.runInTerminal": true,
+  "code-runner.executorMap": {
+    "cpp": "cd $dir && clang++ $fileName -o $fileNameWithoutExt.o && $dir$fileNameWithoutExt.o"
+  },
   // VSCode Vim
   "vim.handleKeys": {
     "<C-f>": false,
@@ -203,11 +206,6 @@
       "after": ["\"", "+", "p"]
     }
   ],
-  // emmet
-  "emmet.triggerExpansionOnTab": true,
-  "emmet.includeLanguages": {
-    "javascript": "javascriptreact"
-  },
   /* ===== LANGUAGE-SPECIFIC STUFF ===== */
   // python
   "python.autoComplete.extraPaths": [],
@@ -223,5 +221,12 @@
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "terminal.integrated.fontSize": 13
+  // cmake
+  "cmake.configureOnOpen": true,
+  // emmet
+  "emmet.triggerExpansionOnTab": true,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+  "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0 }"
 }

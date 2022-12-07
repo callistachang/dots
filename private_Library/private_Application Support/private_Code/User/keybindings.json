@@ -90,7 +90,7 @@
   },
   {
     "key": "shift+ctrl+p",
-    "command": "workbench.action.showCommands"
+    "command": "workbench.action.showCommands",
   },
   {
     "key": "ctrl+p",
@@ -98,40 +98,13 @@
     "when": "!terminalFocus"
   },
   {
-    "key": "ctrl+t",
-    "command": "workbench.action.terminal.toggleTerminal"
-  },
-  {
-    "key": "ctrl+]",
-    "command": "workbench.action.terminal.focusNext",
-    "when": "terminalFocus"
-  },
-  {
     "key": "ctrl+[",
     "command": "workbench.action.terminal.focusPrevious",
     "when": "terminalFocus"
   },
   {
-    "key": "cmd+r",
-    "command": "python.execInTerminal"
-  },
-  {
-    "key": "ctrl+numpad_add",
-    "command": "-workbench.action.zoomIn"
-  },
-  {
-    "key": "ctrl+numpad_add",
-    "command": "fontshortcuts.increaseEditorFontSize",
-    "when": "editorFocus"
-  },
-  {
-    "key": "ctrl+numpad_subtract",
-    "command": "fontshortcuts.decreaseEditorFontSize",
-    "when": "editorFocus"
-  },
-  {
-    "key": "ctrl+-",
-    "command": "-fontshortcuts.decreaseEditorFontSize",
-    "when": "editorFocus"
+    "key": "ctrl+]",
+    "command": "workbench.action.terminal.focusNext",
+    "when": "terminalFocus"
   }
 ]
