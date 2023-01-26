@@ -45,6 +45,8 @@ export BAT_THEME="gruvbox-dark"
 export MANPAGER="sh -c 'sed -e s/.\\\\x08//g | bat -l man -p'" # Use bat's syntax highlighting for manpages
 export ASDF_DIR="$(brew --prefix asdf)"
 export EDITOR="vim"
+export VISUAL="vim"
+bindkey -e
 
 # ==================
 # Zi plugins
@@ -160,6 +162,10 @@ timezsh() {
 
 run() {
   clang++ "$1.cpp" -o "$1.o" && "./$1.o"
+}
+
+gpp() {
+  g++ -std=c++11 -O2 -Wall "$1.cpp" -o "$1.o" && "./$1.o"
 }
 
 # ==================
