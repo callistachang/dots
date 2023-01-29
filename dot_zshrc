@@ -35,7 +35,7 @@ for dump in ~/.zcompdump(N.mh+24); do
   compinit
 done
 compinit -C
-autoload -U +X bashcompinit && bashcompinit
+autoload -Uz +X bashcompinit && bashcompinit
 
 # ==================
 # Variables
@@ -44,7 +44,6 @@ autoload -U +X bashcompinit && bashcompinit
 export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/Users/callista/.local/bin:$PATH"
 export BAT_THEME="gruvbox-dark"
 export MANPAGER="sh -c 'sed -e s/.\\\\x08//g | bat -l man -p'" # Use bat's syntax highlighting for manpages
-export ASDF_DIR="$(brew --prefix asdf)"
 export EDITOR="vim"
 export VISUAL="vim"
 bindkey -e
@@ -84,21 +83,18 @@ zi wait lucid for \
 # fzf-tab: Replace the default completion selection menu with fzf
 # powerlevel10k: Theme
 # evalcache: Cache eval outputs to speedup shell startup 
-# zsh-vi-mode: Vi keybindings on the terminal
 zi light-mode for \
   Aloxaf/fzf-tab \
   depth"1" atload"[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" nocd \
     romkatv/powerlevel10k \
   mroth/evalcache \
-  #atload"
-  #  ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
-  #  ZVM_ESCAPE_KEYTIMEOUT=0
-  #  ZVM_KEYTIMEOUT=0" \
-  #  jeffreytse/zsh-vi-mode
+
+zi light-mode is-snippet for \
+  OMZP::asdf
  
 # OMZ snippets, mostly aliases and utilities
 zi wait lucid is-snippet for \
-  OMZP::{'asdf','git','gitignore','extract','jsontools','fzf','python','nmap'} \
+  OMZP::{'git','gitignore','extract','jsontools','fzf','python','nmap'} \
   silent \
     OMZP::thefuck
 
@@ -163,9 +159,9 @@ timezsh() {
 }
 
 # Compile and run cpp file
-gpp() {
+cpp() {
   name=$(basename $1 .cpp)
-  g++ -std=c++11 -O2 -Wall "$name.cpp" -o "$name.o" && "./$name.o"
+  clang++ -Wall "$name.cpp" -o "$name.o" && "./$name.o"
 }
 
 # ==================
