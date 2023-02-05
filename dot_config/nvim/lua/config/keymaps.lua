@@ -32,10 +32,8 @@ vim.keymap.set("n", ",y", '"*y')
 vim.keymap.set("n", ",p", '"*p')
 
 -- Prev/next buffer
-vim.keymap.set("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
-vim.keymap.set("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
-vim.keymap.set("n", "[b", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
-vim.keymap.set("n", "]b", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
+vim.keymap.set("n", "<s-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
+vim.keymap.set("n", "<s-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
 
 -- Move to window using the <ctrl> hjkl keys
 vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
@@ -62,8 +60,10 @@ vim.keymap.set("n", ",r", "<cmd>RunCode<cr>", { noremap = true, silent = false }
 -- Floating terminal
 vim.keymap.set("n", ",t", "<cmd>ToggleTerm<cr>")
 vim.keymap.set("t", "<esc>", [[<c-\><c-n>]])
-vim.keymap.set("t", "<C-h>", [[<c-\><c-n><C-w>h]], { desc = "Go to left window" })
-vim.keymap.set("t", "<C-j>", [[<c-\><c-n><C-w>j]], { desc = "Go to lower window" })
-vim.keymap.set("t", "<C-k>", [[<c-\><c-n><C-w>k]], { desc = "Go to upper window" })
-vim.keymap.set("t", "<C-l>", [[<c-\><c-n><C-w>l]], { desc = "Go to right window" })
-vim.keymap.set({ "t", "n" }, "<esc><esc>", [[<c-\><c-n><cmd>ToggleTerm<cr>]])
+vim.keymap.set("t", "<c-h>", [[<c-\><c-n><C-w>h]], { desc = "Go to left window" })
+vim.keymap.set("t", "<c-j>", [[<c-\><c-n><C-w>j]], { desc = "Go to lower window" })
+vim.keymap.set("t", "<c-k>", [[<c-\><c-n><C-w>k]], { desc = "Go to upper window" })
+vim.keymap.set("t", "<c-l>", [[<c-\><c-n><C-w>l]], { desc = "Go to right window" })
+vim.keymap.set({ "t", "n" }, "<c-t>", [[<c-\><c-n><cmd>ToggleTerm<cr>]])
+
+vim.keymap.set("n", ",d", "<Plug>VimspectorContinue")
