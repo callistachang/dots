@@ -161,7 +161,7 @@ timezsh() {
 # Compile and run cpp file
 cpp() {
   name=$(basename $1 .cpp)
-  clang++ -Wall "$name.cpp" -o "$name.o" && "./$name.o"
+  clang++ -std=c++17 -Wall "$name.cpp" -o "$name.o" && "./$name.o"
 }
 
 # ==================
