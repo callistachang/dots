@@ -12,6 +12,18 @@ return {
   -- add gruvbox
   { "ellisonleao/gruvbox.nvim" },
 
+  {
+    "CRAG666/code_runner.nvim",
+    opts = {
+      filetype = {
+        java = "cd $dir && javac $fileName && java $fileNameWithoutExt",
+        python = "python3 -u",
+        cpp = "cd $dir && clang++ -std=c++11 -Wall $fileName -o $fileNameWithoutExt.o && ./$fileNameWithoutExt.o",
+        rust = "cd $dir && rustc $fileName && $dir/$fileNameWithoutExt",
+      }
+    }
+  },
+
   -- Configure LazyVim to load gruvbox
   {
     "LazyVim/LazyVim",
@@ -47,27 +59,18 @@ return {
   -- },
 
   -- change some telescope options and a keymap to browse plugin files
-  -- {
-  --   "nvim-telescope/telescope.nvim",
-  --   keys = {
-  --     -- add a keymap to browse plugin files
-  --     -- stylua: ignore
-  --     {
-  --       "<leader>fp",
-  --       function() require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root }) end,
-  --       desc = "Find Plugin File",
-  --     },
-  --   },
-  --   -- change some options
-  --   opts = {
-  --     defaults = {
-  --       layout_strategy = "horizontal",
-  --       layout_config = { prompt_position = "top" },
-  --       sorting_strategy = "ascending",
-  --       winblend = 0,
-  --     },
-  --   },
-  -- },
+  {
+    "nvim-telescope/telescope.nvim",
+    keys = {
+      -- add a keymap to browse plugin files
+      -- stylua: ignore
+      {
+        "<leader>fp",
+        function() require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root }) end,
+        desc = "Find Plugin File",
+      },
+    },
+  },
 
   -- add telescope-fzf-native
   -- {
@@ -89,8 +92,30 @@ return {
       ---@type lspconfig.options
       servers = {
         -- pyright will be automatically installed with mason and loaded with lspconfig
-        pyright = {},
-        clangd = {},
+        pyright = {
+          -- settings = {
+          --   python = {
+          --     analysis = {
+          --       typeCheckingMode = "off",
+          --     }
+          --   }
+          -- }
+        },
+        efm = {
+          init_options = { documentFormatting = true },
+          filetypes = { 'python' },
+          settings = {
+            rootMarkers = { ".git/", "env/", "requirements.txt", "CMakeLists.txt" },
+            languages = {
+              python = {
+                {
+                  formatCommand = "black -",
+                  formatStdin = true,
+                }
+              }
+            }
+          }
+        }
       },
     },
   },
@@ -140,14 +165,29 @@ return {
         "stylua",
         "shellcheck",
         "shfmt",
-        "flake8",
       },
     },
   },
 
   {
+    "akinsho/toggleterm.nvim",
+    opts = {}
+  },
+
+  {
+    "puremourning/vimspector",
+  },
+
+  {
     "echasnovski/mini.indentscope",
     enabled = false,
+  },
+
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    opts = function()
+      return {}
+    end,
   },
 
   -- Use <tab> for completion and snippets (supertab)
@@ -173,8 +213,8 @@ return {
       local cmp = require("cmp")
 
       opts.mapping = vim.tbl_extend("force", opts.mapping, {
-        ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-u>"] = cmp.mapping.scroll_docs(4),
+        ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-d>"] = cmp.mapping.scroll_docs(4),
         ["<Tab>"] = cmp.mapping.confirm({
           select = true,
         }),
