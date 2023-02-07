@@ -6,19 +6,21 @@ return {
       filetype = {
         java = "cd $dir && javac $fileName && java $fileNameWithoutExt",
         python = "python3 -u",
-        cpp = "cd $dir && clang++ -std=c++11 -Wall $fileName -o $fileNameWithoutExt.o && ./$fileNameWithoutExt.o",
+        cpp = "cd $dir && clang++ -std=c++17 -Wall $fileName -o $fileNameWithoutExt.o && ./$fileNameWithoutExt.o",
         rust = "cd $dir && rustc $fileName && $dir/$fileNameWithoutExt",
       }
     },
+    event = "VeryLazy"
   },
   -- Debugger (not done with configuration)
   {
     "puremourning/vimspector",
-    opts = {}
+    event = "VeryLazy"
   },
   -- Terminal ui
   {
     "akinsho/toggleterm.nvim",
-    opts = {}
+    opts = {},
+    event = "VeryLazy"
   }
 }
