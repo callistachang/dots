@@ -1,3 +1,4 @@
+" This is a quick drop-in vimrc without any plugins
 let mapleader=","
 
 "----------------------------------------
@@ -6,8 +7,8 @@ let mapleader=","
 " Escape to normal mode
 inoremap jk <esc>
 " Navigate to start and end of line
-nnoremap H ^
-nnoremap L g_
+nnoremap <left> ^
+nnoremap <right> g_
 " Go back a selection
 nnoremap <Space> ,
 " Copy
@@ -26,25 +27,24 @@ inoremap <leader>q <Esc>:q!<cr>
 vnoremap < <gv
 vnoremap > >gv
 " Move lines up and down
-nnoremap J :m .+1<CR>==
-nnoremap K :m .-2<CR>==
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
+nnoremap <up> :m .+1<CR>==
+nnoremap <up> :m .-2<CR>==
+vnoremap <down> :m '>+1<CR>gv=gv
+vnoremap <down> :m '<-2<CR>gv=gv
 " Quick :nohl
-nnoremap <leader>l :nohl<CR>
-xnoremap <leader>l :nohl<CR>
-inoremap <leader>l <Esc>:nohl<CR>a
+nnoremap <esc> :nohl<CR>
 
 "----------------------------------------
 " Aesthetic
 "----------------------------------------
 syntax on
-" colo desert
 set term=xterm-256color
 set termguicolors
-hi LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+
 " Highlight current line in insert mode
 hi CursorLine ctermbg=237 ctermfg=grey guibg=#5a5a5a cterm=none gui=none
+hi LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+
 :autocmd InsertEnter * set cul
 :autocmd InsertLeave * set nocul
 
