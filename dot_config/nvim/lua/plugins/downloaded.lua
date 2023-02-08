@@ -15,12 +15,19 @@ return {
   -- Debugger (not done with configuration)
   {
     "puremourning/vimspector",
-    event = "VeryLazy"
+    enabled = false,
   },
   -- Terminal ui
   {
     "akinsho/toggleterm.nvim",
     opts = {},
     event = "VeryLazy"
+  },
+  {
+    "s1n7ax/nvim-window-picker",
+    event = "VeryLazy",
+    config = function()
+      require 'window-picker'.setup()
+    end,
   }
 }

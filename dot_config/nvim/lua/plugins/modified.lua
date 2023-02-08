@@ -3,7 +3,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin",
+      colorscheme = "catppuccin-mocha",
     },
   },
   -- add symbols-outline
@@ -24,6 +24,8 @@ return {
       },
     },
   },
+  -- use mini.starter instead of alpha
+  -- { import = "lazyvim.plugins.extras.ui.mini-starter" },
 
   -- Use <tab> for completion and snippets (supertab)
   -- first: disable default <tab> and <s-tab> behavior in LuaSnip
@@ -119,26 +121,26 @@ return {
   },
 
   -- efm for python file formatting
-  -- {
-  --   "neovim/nvim-lspconfig",
-  --   opts = {
-  --     servers = {
-  --       efm = {
-  --         init_options = { documentFormatting = true },
-  --         filetypes = { 'python' },
-  --         settings = {
-  --           rootMarkers = { ".git/", ".envrc", "requirements.txt" },
-  --           languages = {
-  --             python = {
-  --               {
-  --                 formatCommand = "black -",
-  --                 formatStdin = true,
-  --               }
-  --             }
-  --           }
-  --         }
-  --       }
-  --     },
-  --   },
-  -- },
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        efm = {
+          init_options = { documentFormatting = true },
+          filetypes = { 'python' },
+          settings = {
+            rootMarkers = { ".git/", ".envrc", "requirements.txt" },
+            languages = {
+              python = {
+                {
+                  formatCommand = "black -",
+                  formatStdin = true,
+                }
+              }
+            }
+          }
+        }
+      },
+    },
+  },
 }
