@@ -9,6 +9,10 @@ vim.keymap.set("i", "jk", "<esc>")
 vim.keymap.set("n", ",w", "<cmd>w<cr>")
 vim.keymap.set("i", ",w", "<esc><cmd>w<cr>")
 
+-- Start and end of line
+vim.keymap.set("n", ",h", "^")
+vim.keymap.set("i", ",l", "g_")
+
 -- Quick quit
 vim.keymap.set("n", ",q", "<cmd>q<cr>")
 vim.keymap.set("i", ",q", "<esc><cmd>q<cr>")
@@ -41,11 +45,11 @@ vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Go to lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
 
--- Shift lines up and down
-vim.keymap.set("n", "<up>", ":m .-2<cr>==", { desc = "Move up" })
-vim.keymap.set("v", "<up>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
-vim.keymap.set("n", "<down>", ":m .+1<cr>==", { desc = "Move down" })
-vim.keymap.set("v", "<down>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
+-- Resize windows
+vim.keymap.set("n", "<up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+vim.keymap.set("n", "<down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+vim.keymap.set("n", "<left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+vim.keymap.set("n", "<right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 -- Start and end of line
 vim.keymap.set("n", "<left>", "^")
@@ -59,11 +63,11 @@ vim.keymap.set("n", ",r", "<cmd>RunCode<cr>", { noremap = true, silent = false }
 
 -- Floating terminal
 vim.keymap.set("t", "<esc>", [[<c-\><c-n>]])
-vim.keymap.set("t", "<c-h>", [[<c-\><c-n><C-w>h]], { desc = "Go to left window" })
-vim.keymap.set("t", "<c-j>", [[<c-\><c-n><C-w>j]], { desc = "Go to lower window" })
-vim.keymap.set("t", "<c-k>", [[<c-\><c-n><C-w>k]], { desc = "Go to upper window" })
-vim.keymap.set("t", "<c-l>", [[<c-\><c-n><C-w>l]], { desc = "Go to right window" })
+vim.keymap.set("t", "<c-h>", [[<c-\><c-n><C-w>h]])
+vim.keymap.set("t", "<c-j>", [[<c-\><c-n><C-w>j]])
+vim.keymap.set("t", "<c-k>", [[<c-\><c-n><C-w>k]])
+vim.keymap.set("t", "<c-l>", [[<c-\><c-n><C-w>l]])
 vim.keymap.set({ "t", "n" }, "<c-t>", [[<c-\><c-n><cmd>ToggleTerm<cr>]])
 
--- Vimspector
--- vim.keymap.set("n", ",d", "<Plug>VimspectorContinue")
+-- Bidirectional leap
+vim.keymap.set("n", "s", function() require('leap').leap { target_windows = { vim.fn.win_getid() } } end)
