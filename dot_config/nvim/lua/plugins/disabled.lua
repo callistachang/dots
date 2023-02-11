@@ -15,10 +15,6 @@ return {
     "folke/noice.nvim",
     enabled = false,
   },
-  -- {
-  --   "ggandor/leap.nvim",
-  --   enabled = false
-  -- },
   {
     "lewis6991/gitsigns.nvim",
     enabled = false
