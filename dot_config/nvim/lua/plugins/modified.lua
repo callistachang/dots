@@ -23,9 +23,16 @@ return {
         desc = "Find Plugin File",
       },
     },
+    opts = function(_, opts)
+      return vim.tbl_deep_extend("force", opts, {
+        defaults = {
+          mappings = {
+            i = { ["<esc>"] = require("telescope.actions").close },
+          },
+        },
+      })
+    end,
   },
-  -- use mini.starter instead of alpha
-  -- { import = "lazyvim.plugins.extras.ui.mini-starter" },
 
   -- Use <tab> for completion and snippets (supertab)
   -- first: disable default <tab> and <s-tab> behavior in LuaSnip
@@ -50,14 +57,36 @@ return {
       local cmp = require("cmp")
 
       opts.mapping = vim.tbl_extend("force", opts.mapping, {
-        ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-u>"] = cmp.mapping.scroll_docs( -4),
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
-        ["<Tab>"] = cmp.mapping.confirm({
-          select = true,
-        }),
         ["<CR>"] = cmp.mapping.confirm({
           select = true,
         }),
+        ["<Tab>"] = cmp.mapping.confirm({
+          select = true,
+        }),
+        ["<C-n>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_next_item()
+            -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+            -- they way you will only jump inside the snippet region
+          elseif luasnip.expand_or_jumpable() then
+            luasnip.expand_or_jump()
+          elseif has_words_before() then
+            cmp.complete()
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+        ["<C-p>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_prev_item()
+          elseif luasnip.jumpable( -1) then
+            luasnip.jump( -1)
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
         ["<C-j>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
@@ -74,8 +103,8 @@ return {
         ["<C-k>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()
-          elseif luasnip.jumpable(-1) then
-            luasnip.jump(-1)
+          elseif luasnip.jumpable( -1) then
+            luasnip.jump( -1)
           else
             fallback()
           end
@@ -125,6 +154,11 @@ return {
   -- efm for python file formatting
   {
     "neovim/nvim-lspconfig",
+    -- see: https://www.lazyvim.org/plugins/lsp to customize lsp keymaps
+    init = function()
+      local keys = require("lazyvim.plugins.lsp.keymaps").get()
+      keys[#keys + 1] = { "K", false }
+    end,
     opts = {
       servers = {
         efm = {

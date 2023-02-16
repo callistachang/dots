@@ -4,6 +4,7 @@
 
 -- jk to enter insert mode
 vim.keymap.set("i", "jk", "<esc>", { desc = "Exit insert mode" })
+vim.keymap.set("i", "JK", "<esc>", { desc = "Exit insert mode" })
 
 -- Quick save
 vim.keymap.set("n", ",w", "<cmd>w<cr>", { desc = "Save file" })
@@ -45,14 +46,14 @@ vim.keymap.set({ "n", "t" }, "<M-l>", "<cmd>vertical resize -2<cr>", { desc = "D
 vim.keymap.set({ "n", "t" }, "<M-h>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 -- Move lines up and down
-vim.keymap.set("n", "<down>", "<cmd>m .+1<cr>==", { desc = "Move down" })
-vim.keymap.set("n", "<up>", "<cmd>m .-2<cr>==", { desc = "Move up" })
-vim.keymap.set("v", "<down>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
-vim.keymap.set("v", "<up>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+vim.keymap.set("n", "J", "<cmd>m .+1<cr>==", { desc = "Move down" })
+vim.keymap.set("n", "K", "<cmd>m .-2<cr>==", { desc = "Move up" })
+vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv", { desc = "Move down" })
+vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
--- Start and end of line
-vim.keymap.set("n", "<left>", "^", { desc = "Navigate to start of line" })
-vim.keymap.set("i", "<right>", "g_", { desc = "Navigate to end of line" })
+-- Start and end of line (I can't think of a good keymap for this so nvm)
+-- vim.keymap.set("n", "<left>", "^", { desc = "Navigate to start of line" })
+-- vim.keymap.set("i", "<right>", "g_", { desc = "Navigate to end of line" })
 
 -- u to undo, so U to redo
 vim.keymap.set("n", "U", "<c-r>", { desc = "Redo" })
@@ -68,7 +69,9 @@ vim.keymap.set("t", "<c-k>", [[<c-\><c-n><C-w>k]], { desc = "Go to upper window"
 vim.keymap.set("t", "<c-l>", [[<c-\><c-n><C-w>l]], { desc = "Go to right window" })
 vim.keymap.set({ "t", "n" }, "<c-t>", [[<c-\><c-n><cmd>ToggleTerm<cr>]], { desc = "Toggle terminal" })
 
+-- Alpha
+vim.keymap.set("n", "<leader>a", "<cmd>:Alpha<cr>", { desc = "Alpha" })
+
 -- Bidirectional leap
-vim.keymap.set("n", "s", function()
-  require('leap').leap { target_windows = { vim.fn.win_getid() } }
-end, { desc = "Bidirectional leap" })
+vim.keymap.set("n", "s", function() require('leap').leap { target_windows = { vim.fn.win_getid() } } end,
+  { desc = "Bidirectional leap" })
