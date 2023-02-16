@@ -8,10 +8,6 @@ return {
     enabled = false,
   },
   {
-    "stevearc/dressing.nvim",
-    enabled = true,
-  },
-  {
     "folke/noice.nvim",
     enabled = false,
   },
